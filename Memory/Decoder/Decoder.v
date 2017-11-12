@@ -2,7 +2,6 @@
 Decoder module
 */
 
-
 module Decoder(inst, cond, opcd, dest, source, source2);
 
 	input[15:0] inst; // 16 bit instruction input from ROM for decoding

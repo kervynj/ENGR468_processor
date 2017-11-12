@@ -1,3 +1,7 @@
+/* ENGR 468 - Milestone #2 Memory
+ROM module
+*/
+
 module ROM(oeb, inst, pc);
   parameter Awidth = 8, Dwidth = 16;
   

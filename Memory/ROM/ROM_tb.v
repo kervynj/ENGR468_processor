@@ -1,5 +1,9 @@
 `include "ROM.v"
 
+/* ENGR 468 - Milestone #2 Memory
+ROM Test Bench module
+*/
+
 module rom_tb();
 
 wire [15:0] instruction;
