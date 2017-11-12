@@ -1,0 +1,40 @@
+#! c:/iverilog-x64/bin/vvp
+:ivl_version "10.1 (stable)" "(v10_1_1)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision + 0;
+:vpi_module "system";
+:vpi_module "vhdl_sys";
+:vpi_module "v2005_math";
+:vpi_module "va_math";
+S_00000000008a2720 .scope module, "ROM" "ROM" 2 1;
+ .timescale 0 0;
+    .port_info 0 /INPUT 1 "oeb"
+    .port_info 1 /OUTPUT 16 "inst"
+    .port_info 2 /INPUT 8 "pc"
+P_00000000008d6990 .param/l "Awidth" 0 2 2, +C4<00000000000000000000000000001000>;
+P_00000000008d69c8 .param/l "Dwidth" 0 2 2, +C4<00000000000000000000000000010000>;
+P_00000000008d6a00 .param/l "Length" 1 2 7, +C4<0000000000000000000000000000000100000000>;
+o00000000008d6cc8 .functor BUFZ 1, C4<z>; HiZ drive
+L_0000000000930308 .functor BUFT 1, C4<0>, C4<0>, C4<0>, C4<0>;
+L_00000000008a2dc0 .functor XNOR 1, o00000000008d6cc8, L_0000000000930308, C4<0>, C4<0>;
+v00000000008a2eb0_0 .net/2u *"_s0", 0 0, L_0000000000930308;  1 drivers
+o00000000008d6ba8 .functor BUFZ 16, C4<zzzzzzzzzzzzzzzz>; HiZ drive
+; Elide local net with no drivers, v00000000008a28a0_0 name=_s10
+v00000000008a2940_0 .net *"_s2", 0 0, L_00000000008a2dc0;  1 drivers
+v00000000008a29e0_0 .net *"_s4", 15 0, L_000000000092f670;  1 drivers
+v00000000008a2a80_0 .net *"_s6", 9 0, L_000000000092f8f0;  1 drivers
+L_0000000000930350 .functor BUFT 1, C4<00>, C4<0>, C4<0>, C4<0>;
+v000000000092f080_0 .net *"_s9", 1 0, L_0000000000930350;  1 drivers
+v000000000092f120_0 .net "inst", 15 0, L_000000000092f710;  1 drivers
+v000000000092f1c0 .array "mem", 255 0, 15 0;
+v000000000092fb70_0 .net "oeb", 0 0, o00000000008d6cc8;  0 drivers
+o00000000008d6cf8 .functor BUFZ 8, C4<zzzzzzzz>; HiZ drive
+v000000000092fd50_0 .net "pc", 7 0, o00000000008d6cf8;  0 drivers
+L_000000000092f670 .array/port v000000000092f1c0, L_000000000092f8f0;
+L_000000000092f8f0 .concat [ 8 2 0 0], o00000000008d6cf8, L_0000000000930350;
+L_000000000092f710 .functor MUXZ 16, o00000000008d6ba8, L_000000000092f670, L_00000000008a2dc0, C4<>;
+# The file index is used to find the file name in the following table.
+:file_names 3;
+    "N/A";
+    "<interactive>";
+    "ROM.v";
