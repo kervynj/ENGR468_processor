@@ -5,7 +5,7 @@ Register module
 module register_bank(enable, destination_data, q);
 	input [7:0] enable;	// enable for 8 registers
 	input [15:0] destination_data; // data returned from ALU block
-	output [127:0] q; // 16 bit output from 8 register
+	output [127:0] q; // 16 bit output from 8 registers
 	genvar i;
 		
 	generate for (i =0; i<8; i= i+1)
