@@ -1,6 +1,10 @@
-`include "Decoder.v"
+`include "splitter.v"
 
-module Decoder_tb();
+/* ENGR 468 - Milestone #2 Memory
+Decoder Test Bench
+*/
+
+module splitter_tb();
 	
 	reg[15:0] inst; // 16 bit instruction input from ROM for decoding
 	wire[1:0] cond; // 2 bits MSG for condition
@@ -22,7 +26,7 @@ module Decoder_tb();
 		$monitor("t= %d, inst= %d,opcd= %d, dest= %d, source= %d, source2= %d", $time, cond, opcd, dest, source, source2);
 	end
 	
-	Decoder MUT(inst, cond, opcd, dest, source, source2);
+	splitter MUT(inst, cond, opcd, dest, source, source2);
 	
 endmodule
 	

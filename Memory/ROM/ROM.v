@@ -3,13 +3,26 @@ ROM module
 */
 
 module ROM(oeb, inst, pc);
-  parameter Awidth = 8, Dwidth = 16;
+  parameter Awidth = 4, Dwidth = 16;
   
   input oeb;
-  output [Dwidth-1:0] inst; //read only output instruction set
-  input [Awidth-1:0] pc;
+  reg rw;
+  input[2:0] pc;
+  //wire [Dwidth-1:0] next_inst; //read only output instruction set
+  output reg[Dwidth-1:0] inst; //read only output instruction set
+
   localparam Length = (1 << Awidth);
   reg [Dwidth-1:0] mem[0:Length-1]; // initialize 8x16 memory address 
-  assign inst = (oeb ==1'b0) ? mem[pc]: 'bz;
+  
+  
+  always@(posedge oeb)
+  begin
+  
+	rw = oeb;
+	
+	if (rw == 1)
+		inst = mem[pc];	//pass instruction set through only on 'fetch' cycle
+  end
+  
   
 endmodule

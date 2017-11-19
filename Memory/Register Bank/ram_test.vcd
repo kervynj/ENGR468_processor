@@ -1,0 +1,109 @@
+$date
+	Thu Nov 16 19:15:43 2017
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1s
+$end
+$scope module ram_tb $end
+$var wire 16 ! dataOut [15:0] $end
+$var reg 1 " clock $end
+$var reg 16 # dataIn [15:0] $end
+$var reg 3 $ enable [2:0] $end
+$var reg 3 % sel [2:0] $end
+$var reg 2 & state [1:0] $end
+$scope module r $end
+$var wire 3 ' address [2:0] $end
+$var wire 16 ( dataIn [15:0] $end
+$var wire 3 ) enable [2:0] $end
+$var wire 3 * select [2:0] $end
+$var wire 2 + state [1:0] $end
+$var reg 16 , dataOut [15:0] $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+b1111111111111111 ,
+b1 +
+b0 *
+b0 )
+b0 (
+bz '
+b1 &
+b0 %
+b0 $
+b0 #
+1"
+b1111111111111111 !
+$end
+#5
+0"
+#10
+b10 &
+b10 +
+1"
+#15
+0"
+#20
+b0 &
+b0 +
+1"
+#25
+0"
+#30
+b0 !
+b0 ,
+b1 &
+b1 +
+1"
+b1 $
+b1 )
+#35
+0"
+#40
+b10 &
+b10 +
+1"
+#45
+0"
+#50
+b0 &
+b0 +
+1"
+b1 %
+b1 *
+#55
+0"
+#60
+b1 &
+b1 +
+1"
+#65
+0"
+#70
+b10 &
+b10 +
+1"
+b111 $
+b111 )
+b1010101010101010 #
+b1010101010101010 (
+#75
+0"
+#80
+b0 &
+b0 +
+1"
+#85
+0"
+#90
+b1010101010101010 !
+b1010101010101010 ,
+b1 &
+b1 +
+1"
+b111 %
+b111 *

@@ -13,7 +13,7 @@ module register_bank_tb();
 	initial
 	begin
 		alu_data = 16'h000F; // test value for destination register data
-		for (i=0; i<8; i=i+1)
+		for (i=0; i<127; i=i+1)
 		begin
 			en = i;
 			#5;
@@ -30,4 +30,3 @@ module register_bank_tb();
 	end
 endmodule 
 	
-			

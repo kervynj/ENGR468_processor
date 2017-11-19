@@ -1,3 +1,6 @@
+`include "..\ALU\ALU.v"
+
+
 // Mitchell Johnston - ENGR 468 2017
 // Project Milestone 1 - ALU
 // Note: CMP instruction can be taken care of with subtraction block
