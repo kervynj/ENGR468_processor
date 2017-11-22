@@ -32,7 +32,7 @@ module nbit_subtractor(in1, in2, return1, f);
   
   assign in2_inverse = (~in2);
   
-  nbit_adder #(size) add(in2_inverse, 1, in2_negative, f);
+  nbit_adder #(size) add(in2_inverse, 16'b1, in2_negative, f);
   nbit_adder #(size) add2(in1, in2_negative, return1, f); 
   
 endmodule 
@@ -93,63 +93,71 @@ module nbit_xor(in1, in2, return1, f);
 endmodule
 
 //n-bitwise left shift
-module nbit_left_shift(in1, return1, f);
+module nbit_left_shift(in1, return1, f, shiftb);
   parameter size = 16;
-  parameter shift_int = 4;
+  input [3:0] shiftb;
   input [size-1:0] in1;
   output [size-1:0] return1;
   output [3:0] f;
   
-  assign return1 = in1 << shift_int;
+  assign return1 = in1 << shiftb;
   assign f[0] = return1[size-1];
-  assign f[1] = in1[size-shift_int]; 
+  assign f[1] = in1[size-shiftb]; 
   assign f[3] = 1'b0; // set to 0
   assign f[2] = ~|return1;
 endmodule
 
 
 //n-bitwise right shift
-module nbit_right_shift(in1, return1, f);
+module nbit_right_shift(in1, return1, f, shiftb);
   parameter size = 16;
-  parameter shift_int = 4;
+  
+  input [3:0]shiftb;
   input [size-1:0] in1;
   output [size-1:0] return1;
   output [3:0] f;
   
-  assign return1 = in1 >> shift_int;
+  assign return1 = in1 >> shiftb;
   assign f[0] = return1[size-1];
-  assign f[1] = in1[shift_int-1]; 
+  assign f[1] = in1[shiftb-1]; 
   assign f[3] = 1'b0; // set to 0
   assign f[2] = ~|return1;
 endmodule
 
 
 //n-bitwise right rotate 
-module nbit_right_rotate(in1, return1, f);
+module nbit_right_rotate(in1, return1, f, shiftb);
   parameter size = 16;
-  parameter shift_int = 4;
+
+  input [3:0]shiftb;
   input [size-1:0] in1;
   output [size-1:0] return1;
   output [3:0] f;
   
-  assign return1 = {in1[shift_int-1:0], in1[size-1:shift_int]};
+  wire [(size*2-1):0] tmp;
+  
+  assign tmp = {in1, in1} >> shiftb;
+  
+  
+  assign return1 = tmp[size-1:0];
   
   assign f[0] = return1[size-1];
-  assign f[1] = in1[shift_int-1]; 
+  assign f[1] = in1[shiftb-1]; 
   assign f[3] = 1'b0; // set to 0
   assign f[2] = ~|return1;
 endmodule
 
 
-// 32bit mux
-module mux(a, b, c, d, e, f, g, h, i, sel, return1);
-  input [31:0] a, b, c, d, e, f, g, h, i;
+// 16bit mux
+module mux(a, b, c, d, e, f, g, h, i, sel, return1, execute);
+  input [15:0] a, b, c, d, e, f, g, h, i;
   input [3:0] sel;
-  output [31:0] return1;
+  input execute;
+  output [15:0] return1;
   
-  reg [31:0] return1;
+  reg [15:0] return1;
 
-  always@(*)
+  always@(posedge execute)
     case(sel)
       4'b0000: return1 = a;
       4'b0001: return1 = b;
