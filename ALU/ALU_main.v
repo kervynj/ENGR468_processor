@@ -33,8 +33,8 @@ module main(r1, r2, r3, opcode, shift_bits, flags, execute);
   nbit_right_rotate #(len) rr(r2, rr_out, f_rr_out, shift_bits);
   
   // multiplex data lines from modules including flags
-  mux mx(add_out, sub_out, mult_out, or_out, and_out, xor_out, ls_out, rs_out, rr_out, opcode, r1, execute);
-  fourbit_mux mxf(f_add_out, f_sub_out, f_mult_out, f_or_out, f_and_out, f_xor_out, f_ls_out, f_rs_out, f_rr_out, opcode, flags);
+  mux mx(add_out, sub_out, mult_out, or_out, and_out, xor_out, rs_out, ls_out, rr_out, opcode, r1, execute);
+  fourbit_mux mxf(f_add_out, f_sub_out, f_mult_out, f_or_out, f_and_out, f_xor_out, f_rs_out, f_ls_out, f_rr_out, opcode, flags);
   
   
   
