@@ -1,5 +1,0 @@
-@0
-0x0202 // ADD R4, R0, R1
-0xC0A6 // ADD R1, R2, R3
-0xDD34 // SHL R2, R3, #4 **fixed from 0xDCA8
-0xD933 // SHR R2, R3, #3 **fixed from 0xD8A3
