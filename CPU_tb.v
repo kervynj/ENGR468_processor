@@ -26,7 +26,7 @@ module cpu_tb();
 		cpu.execute = 0;
 		
 		
-		$readmemh("milestone3_instructions.txt", cpu.rom.mem); // intialize ROM memory
+		$readmemb("program_instructions.txt", cpu.rom.mem); // intialize ROM memory
 		
 		for(i=0; i<8; i = i+1)
 		begin	
@@ -35,7 +35,7 @@ module cpu_tb();
 		
 		
 		
-		$readmemh("milestone3_ram_initial.txt", cpu.ram.mem); // initialize RAM memory 
+		$readmemh("initial_ram_data.txt", cpu.ram.mem); // initialize RAM memory 
 		
 		$display("\n");
 		
@@ -50,7 +50,7 @@ module cpu_tb();
 		$display("\n");
 
 	
-		#85
+		#300
 	
 		$finish();
 	end
@@ -67,7 +67,7 @@ module cpu_tb();
 	
 	initial
 	begin	
-		$monitor("clock =%b, state = %d, opcode = %b, sel1 = %d, sel2 = %d, shift = %d, dest = %d, source1 = %h, source2 = %h, ALU_data = %h", clock, cpu.current_state, cpu.opcode, cpu.select1, cpu.select2[3:1], cpu.select2[3:0], cpu.dest, cpu.source1, cpu.source2, cpu.ALU_data);
+		$monitor("state = %d, exec = %b, opcode = %b, sel1 = %d, sel2 = %d, shift = %d, dest = %d, source1 = %h, source2 = %h, ALU_data = %h, cond = %b , flags = %b", cpu.current_state, cpu.execute, cpu.opcode, cpu.select1, cpu.select2[3:1], cpu.select2[3:0], cpu.dest, cpu.source1, cpu.source2, cpu.ALU_data, cpu.cond, cpu.flags);
 	end
 endmodule
 

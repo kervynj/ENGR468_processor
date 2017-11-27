@@ -16,11 +16,11 @@ module CPU(clock);
 	wire[15:0] source1, source2;// decoded register data to ALU
 	
 	wire[15:0] inst;            // fetched instruction set from ROM
+	wire[1:0] cond;
 	wire[3:0] opcode; 
 	wire[2:0] dest, select1;
 	wire[3:0]select2;
-	wire[3:0]flags;
-	
+	wire[3:0]flags;	
 	
 	// FSM state (fetch, decode, execute) architecture
 	always@(current_state)
@@ -28,12 +28,13 @@ module CPU(clock);
 	
 		if (current_state == 2)	//during execution, write back ALU data to RAM and increment PC
 		begin
+		
+			execute =  ((cond == 2'b00) & flags[0]==1'b1)? 1'b0:(cond == 2'b01 & flags[0]==0)? 1'b0: (cond == 2'b10 & flags[2]==0)? 1'b0: 1'b1; //conditional execution
 			next_state = 0;
 			rw = 0;
 			pc = pc +1;
-			chip_enable = 1;
+			chip_enable = (execute)? 1: 0;
 			rw_RAM = 0;
-			execute = 1;
 
 		end
 		
@@ -70,7 +71,7 @@ module CPU(clock);
 			
 			
 	splitter split(.inst(inst),
-        	       .cond(),
+        	       .cond(cond),
   				   .opcd(opcode),
 				   .dest(dest),
 				   .source(select1),
@@ -85,7 +86,9 @@ module CPU(clock);
 			.select2(select2[3:1]),
 			.dataIn(ALU_data),
 			.source1(source1),
-			.source2(source2));
+			.source2(source2),
+			.opcode(opcode),
+			.dest(dest));
 			
 			
 	main alu(.r1(ALU_data),

@@ -27,13 +27,18 @@ module nbit_subtractor(in1, in2, return1, f);
   output [size-1:0] return1;
   output [3:0] f;
   
+  wire [3:0] f_intermediate;
+  
   wire [size-1:0] in2_inverse;
   wire [size-1:0] in2_negative;
   
-  assign in2_inverse = (~in2);
+  assign in2_inverse = (~in2) ;
   
-  nbit_adder #(size) add(in2_inverse, 16'b1, in2_negative, f);
+  nbit_adder #(size) add(in2_inverse, 16'b1, in2_negative, f_intermediate);
+  
   nbit_adder #(size) add2(in1, in2_negative, return1, f); 
+  
+  
   
 endmodule 
 
@@ -46,6 +51,7 @@ module nbit_multiplier(in1, in2, return1, f);
   output [3:0] f;
   
   assign {f[0],return1} = in1*in2; // complete multiplication and set C
+  assign f[3:0] = 3'b000;
 endmodule 
 
 
@@ -168,18 +174,19 @@ module mux(a, b, c, d, e, f, g, h, i, sel, return1, execute);
       4'b0110: return1 = g;
       4'b0111: return1 = h;
       4'b1000: return1 = i;
+	  4'b1001: return1 = b; // compare uses same lines as subract module
+	  default return1 =a;
     endcase
 endmodule 
 
 // 4bit mux
-module fourbit_mux(a2, b2, c2, d2, e2, f2, g2, h2, i2, sel2, return1);
+module fourbit_mux(a2, b2, c2, d2, e2, f2, g2, h2, i2, sel2, return1, execute);
   input [3:0] a2, b2, c2, d2, e2, f2, g2, h2, i2;
   input [3:0] sel2;
-  output [3:0] return1;
+  input execute;
+  output reg [3:0] return1;
   
-  reg [3:0] return1;
-
-  always@(*)
+  always@(posedge execute)
     case(sel2)
       4'b0000: return1 = a2;
       4'b0001: return1 = b2;
@@ -190,6 +197,8 @@ module fourbit_mux(a2, b2, c2, d2, e2, f2, g2, h2, i2, sel2, return1);
       4'b0110: return1 = g2;
       4'b0111: return1 = h2;
       4'b1000: return1 = i2;
+	  4'b1001: return1 = b2; // compare uses same lines as subract module
+	  default return1 = a2;
     endcase
 endmodule 
   
