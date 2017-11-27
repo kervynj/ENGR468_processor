@@ -1,0 +1,25 @@
+@0
+
+// test Adder
+11_0000_001_011_010_0 // cond = 0, opcd = 0 (add), dest_reg = 1, sel1 = 3, sel2 = 2, output = 3+2=5
+
+// test Subtractor 
+11_0001_010_111_110_0 // cond = 0, opcd = 1 (subtract), dest_reg = 2, sel1 = 7, sel2 = 6 , output = 7-6=1
+
+// test Multiplier
+11_0010_101_100_110_0 // cond = 0, opcd = 2 (multiply), dest_reg = 5, sel1 = 4, sel2 = 6, output = 4*6=24
+
+//test OR function
+11_0011_100_101_001_0 // cond = 0, opcd = 3 (OR), dest_reg = 4, sel1 = 5, sel2 = 1, output = 24|5 = 29
+
+//test AND function
+11_0100_110_100_101_0 // cond = 0, opcd = 4 (AND), dest_reg = 6, sel1 = 4, sel2 = 5, output = 24|29 = 24
+
+//test XOR'ing
+11_0101_111_110_100_0 // cond = 0, opcd = 5 (XOR), dest_reg = 7, sel1 = 6, sel2 = 4, output = 24 XOR 29 = 5;
+
+//test right shift
+11_0110_010_001_0011 // cond = 0, opcd = 6 (left-shift) dest_reg = 2, sel1 = 1, shiftbits = 3, output = 5 >> 3 = 0;
+
+//test left shift
+11_0111_100_101_0010 // cond = 0, opcd = 7 (right-shift) dest_reg = 4, sel1 = 5, shiftbits = 2, output = 5 << 2 = 100;
