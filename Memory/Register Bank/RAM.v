@@ -14,16 +14,8 @@ module RAM(rw, chip_enable, enable, select1, select2, dataIn, source1, source2, 
 	if (chip_enable)
 		if (rw)
 		begin
-			if (opcode == 4'b1001)	// necessary for compare
-			begin
-				source1 = mem[select1];
-				source2 = mem[dest];
-			end
-			else
-			begin
-				source1 = mem[select1];
-				source2 = mem[select2];
-			end
+			source1 = mem[select1];
+			source2 = mem[select2];
 		end
 		else
 			mem[enable] = dataIn;
