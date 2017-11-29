@@ -17,8 +17,7 @@ module RAM(rw, chip_enable, enable, select1, select2, dataIn, source1, source2, 
 			source1 = mem[select1];
 			source2 = mem[select2];
 		end
-		else
-			mem[enable] = dataIn;
+
 	else
 	begin
 		source1 = 16'hzzzz;

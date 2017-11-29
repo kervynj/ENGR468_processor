@@ -34,8 +34,7 @@ module CPU(clock);
 			rw = 0;
 			pc = pc +1;
 			chip_enable = (execute)? 1: 0;
-			rw_RAM = 0;
-
+			rw_RAM = (opcode != 4'b1001)? 1: 0;
 		end
 		
 		else if(current_state ==1)	// during decoding, turn ROM to high-impedance, read desired registers and output to ALU
