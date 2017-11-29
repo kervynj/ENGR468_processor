@@ -26,15 +26,15 @@ module CPU(clock);
 	always@(current_state)
 	begin
 	
-		if (current_state == 2)	//during execution, write back ALU data to RAM and increment PC
+		if (current_state == 2)	//during execution, write back ALU response to RAM and increment PC
 		begin
 		
 			execute =  ((cond == 2'b00) & flags[0]==1'b1)? 1'b0:(cond == 2'b01 & flags[0]==0)? 1'b0: (cond == 2'b10 & flags[2]==0)? 1'b0: 1'b1; //conditional execution
 			next_state = 0;
 			rw = 0;
 			pc = pc +1;
-			chip_enable = (execute)? 1: 0;
-			rw_RAM = (opcode != 4'b1001)? 1: 0;
+			chip_enable = (execute)? 1: 0;	// disable ROM if execute is false (no read, no write)
+			rw_RAM = (opcode != 4'b1001)? 0: 1;	// ensure ROM is not written to during CMP instruction set
 		end
 		
 		else if(current_state ==1)	// during decoding, turn ROM to high-impedance, read desired registers and output to ALU
